@@ -113,6 +113,7 @@ export KUBERNETES_NAMESPACE=default
 ```
 
 6- Lab 1. Deploy your first application
+
 https://ibm.github.io/kube101/Lab1/
 
 
