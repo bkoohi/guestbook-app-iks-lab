@@ -114,6 +114,9 @@ export KUBERNETES_NAMESPACE=default
 
 6- Install the guessbook app:
 ```
+git clone https://github.com/IBM/guestbook.git
+```
+```
 kubectl create deployment guestbook --image=ibmcom/guestbook:v1
 
 ```
