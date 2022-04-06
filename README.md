@@ -1,6 +1,6 @@
- 1- Hands-on lab training guessbook-app-iks-lab
+ ### 1- Hands-on lab training guestbook-app-iks-lab
 
-Deploy a HTTP Web App on IKS cluster Workshop 
+Deploy a guestbook Web App on IKS cluster Workshop 
 
 The purpose of this structured, no-cost, hands-on, instructor-led learning 
 experience is to demonstrate how to combine different technologies such 
