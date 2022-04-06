@@ -122,8 +122,8 @@ kubectl create deployment guestbook --image=ibmcom/guestbook:v1
 ```
 7- Display hello-world app deployment:
 ```
-kubectl get deployments hello-world
-kubectl describe deployments hello-world
+kubectl get deployments guestbook
+kubectl describe deployments guestbook
 ```
 
 8- Display hello-world ReplicaSet objects:
