@@ -144,7 +144,7 @@ ibmcloud ks cluster get --cluster $MYCLUSTER
 ```
 Deploy the service:
 ```
-kubectl expose deployment guestbook --type=oadBalancer --port=3000
+kubectl expose deployment guestbook --type=LoadBalancer --port=3000
 
 ```
 
@@ -154,33 +154,69 @@ kubectl get services guestbook
 ```
 It may take up to 5 min to update Loadbalancer in IBM Cloud with new service. As an example of output:
 ```
-Name:                     my-service
-Namespace:                default
-Labels:                   app.kubernetes.io/name=load-balancer-example
-Annotations:              <none>
-Selector:                 app.kubernetes.io/name=load-balancer-example
-Type:                     LoadBalancer
-IP Families:              <none>
-IP:                       172.21.72.4
-IPs:                      172.21.72.4
-LoadBalancer Ingress:     f17a4a30-us-south.lb.appdomain.cloud
-Port:                     <unset>  8080/TCP
-TargetPort:               8080/TCP
-NodePort:                 <unset>  32691/TCP
-Endpoints:                172.17.32.206:8080,172.17.32.207:8080,172.17.40.205:8080 + 2 more...
-Session Affinity:         None
-External Traffic Policy:  Cluster
-Events:
-  Type    Reason                           Age   From                Message
-  ----    ------                           ----  ----                -------
-  Normal  EnsuringLoadBalancer             15m   service-controller  Ensuring load balancer
-  Normal  EnsuredLoadBalancer              15m   service-controller  Ensured load balancer
-  Normal  CloudVPCLoadBalancerNormalEvent  10m   ibm-cloud-provider  Event on cloud load balancer my-service for service default/my-service with UID d3026d55-587d-434d-b318-fecd19e32193: The VPC load balancer that routes requests to this Kubernetes LoadBalancer service is currently online/active.
-  
+$ kubectl get services guestbook
+NAME        TYPE           CLUSTER-IP      EXTERNAL-IP                            PORT(S)          AGE
+guestbook   LoadBalancer   172.21.50.119   fb9c40ef-us-south.lb.appdomain.cloud   3000:32334/TCP   41s
 ```
 7.5 Use the loadbalancer in "LoadBalancer Ingress:" field and HTTP port in "TargetPort:". Open your application in a browser at https://"LoadBalancer Ingress:"TargetPort:". Output display should be:
+ie. http://fb9c40ef-us-south.lb.appdomain.cloud:3000
 ```
-Hello Kubernetes!
+curl -v http://fb9c40ef-us-south.lb.appdomain.cloud:3000
+```
+```
+* Rebuilt URL to: http://fb9c40ef-us-south.lb.appdomain.cloud:3000/
+*   Trying 150.240.68.156...
+* TCP_NODELAY set
+* Connected to fb9c40ef-us-south.lb.appdomain.cloud (150.240.68.156) port 3000 (#0)
+> GET / HTTP/1.1
+> Host: fb9c40ef-us-south.lb.appdomain.cloud:3000
+> User-Agent: curl/7.61.1
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Accept-Ranges: bytes
+< Content-Length: 1047
+< Content-Type: text/html; charset=utf-8
+< Last-Modified: Mon, 10 Dec 2018 00:51:16 GMT
+< Date: Wed, 06 Apr 2022 18:24:56 GMT
+< 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta charset="utf-8">
+    <meta content="width=device-width" name="viewport">
+    <link href="style.css" rel="stylesheet">
+    <title>Guestbook - v1</title>
+  </head>
+  <body>
+    <div id="header">
+      <h1>Guestbook - v1</h1>
+    </div>
+
+    <div id="guestbook-entries">
+      <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+      <p>Waiting for database connection... <i class='em em-boat'></i></p>
+      
+    </div>
+
+    <div>
+      <form id="guestbook-form">
+        <input autocomplete="off" id="guestbook-entry-content" type="text">
+        <a href="#" id="guestbook-submit">Submit</a>
+      </form>
+    </div>
+
+    <div>
+      <p><h2 id="guestbook-host-address"></h2></p>
+      <p><a href="env">/env</a>
+      <a href="info">/info</a></p>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
+* Connection #0 to host fb9c40ef-us-south.lb.appdomain.cloud left intact
 ```
 
 ### 8-  Clean up and remove application
@@ -192,16 +228,16 @@ kubectl get deployments
 	
 8.2 Identify kubernetesnodeapp-deployment application in the list and delete
 ```
-kubectl delete -n default deployment hello-world 
+kubectl delete -n default deployment guessbook
 ```
 	
-8.3 List installed ingress controller 
+8.3 List services
 ```
-kubectl get ingress
+kubectl get services
 ```
 	
-8.4 Delete ngress-for-ibmdomain-http-and-https Ingress controller 
+8.4 Delete guessbook services
 ```
-kubectl delete -n default service my-service  
+kubectl delete -n default service guessbook 
 ```
 	
