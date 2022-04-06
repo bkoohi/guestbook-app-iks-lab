@@ -82,7 +82,7 @@ Install must-have tools to be productive with IBM Cloud:
 For tools installation, please follow instructions in this link: https://cloud.ibm.com/docs/solution-tutorials?topic=solution-tutorials-tutorials
 
 
-### 5- Deploy the application with Helm 3
+### 5- Deploy the application with kubectl cli
 In this section you will deploy the guessbook starter application using kubectl CLI. 
 
 1- Define an environment variable named MYPROJECT and set the name of the application by replacing the placeholder with your initials:
