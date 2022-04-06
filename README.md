@@ -239,7 +239,7 @@ Kubernetes will now try to make reality match the desired state of 10 replicas b
 kubectl rollout status deployment guestbook
 ```
 The rollout might occur so quickly that the following messages might not display:
-
+```
 $ kubectl rollout status deployment guestbook
 Waiting for rollout to finish: 1 of 10 updated replicas are available...
 Waiting for rollout to finish: 2 of 10 updated replicas are available...
@@ -251,13 +251,13 @@ Waiting for rollout to finish: 7 of 10 updated replicas are available...
 Waiting for rollout to finish: 8 of 10 updated replicas are available...
 Waiting for rollout to finish: 9 of 10 updated replicas are available...
 deployment "guestbook" successfully rolled out
-
+```
 8.3 Once the rollout has finished, ensure your pods are running by using:
 ```
 kubectl get pods
 ```
 You should see output listing 10 replicas of your deployment:
-
+```
 $ kubectl get pods
 NAME                        READY     STATUS    RESTARTS   AGE
 guestbook-562211614-1tqm7   1/1       Running   0          1d
@@ -270,7 +270,7 @@ guestbook-562211614-vtfp2   1/1       Running   0          2m
 guestbook-562211614-vz5qw   1/1       Running   0          2m
 guestbook-562211614-zksw3   1/1       Running   0          2m
 guestbook-562211614-zsp0j   1/1       Running   0          2m
-
+```
 Tip: Another way to improve availability is to add clusters and regions to your deployment, as shown in the following diagram:
 ![plot](https://ibm.github.io/kube101/images/cs_cluster_ha_roadmap_multizone_public.png)
 
