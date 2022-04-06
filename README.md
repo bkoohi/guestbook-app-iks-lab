@@ -228,7 +228,7 @@ kubectl get deployments
 	
 8.2 Identify kubernetesnodeapp-deployment application in the list and delete
 ```
-kubectl delete -n default deployment guessbook
+kubectl delete -n default deployment guestbook
 ```
 	
 8.3 List services
@@ -238,6 +238,6 @@ kubectl get services
 	
 8.4 Delete guessbook services
 ```
-kubectl delete -n default service guessbook 
+kubectl delete -n default service guestbook 
 ```
 	
