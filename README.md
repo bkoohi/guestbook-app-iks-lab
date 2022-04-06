@@ -272,7 +272,7 @@ guestbook-562211614-zksw3   1/1       Running   0          2m
 guestbook-562211614-zsp0j   1/1       Running   0          2m
 
 Tip: Another way to improve availability is to add clusters and regions to your deployment, as shown in the following diagram:
-(https://ibm.github.io/kube101/images/cs_cluster_ha_roadmap_multizone_public.png)
+![plot](https://ibm.github.io/kube101/images/cs_cluster_ha_roadmap_multizone_public.png)
 
 ### 9-  Clean up and remove application
 	
