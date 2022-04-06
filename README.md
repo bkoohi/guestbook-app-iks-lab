@@ -112,7 +112,11 @@ If you wish to use the default Kubernetes namespace, run the below command to se
 export KUBERNETES_NAMESPACE=default
 ```
 
-6- Install the guessbook app:
+6- Lab 1. Deploy your first application
+https://ibm.github.io/kube101/Lab1/
+
+
+Install the guessbook app:
 ```
 git clone https://github.com/IBM/guestbook.git
 ```
