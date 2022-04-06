@@ -85,7 +85,7 @@ For tools installation, please follow instructions in this link: https://cloud.i
 ### 5- Deploy the application with kubectl cli
 In this section you will deploy the guessbook starter application using kubectl CLI. 
 
-1- Define an environment variable named MYPROJECT and set the name of the application by replacing the placeholder with your initials:
+5.1- Define an environment variable named MYPROJECT and set the name of the application by replacing the placeholder with your initials:
 ```
 export MYPROJECT=<your-initials>kubenodeapp
 ```
@@ -94,210 +94,33 @@ export MYPROJECT=<your-initials>kubenodeapp
 ibmcloud ks cluster ls
 ```
 
-3- Initialize the variable with the cluster name
+5.3- Initialize the variable with the cluster name
 
 ```
 export MYCLUSTER=<CLUSTER_NAME>
 ```
 
-4- Initialize the kubectl cli environment
+5.4- Initialize the kubectl cli environment
 ```
 ibmcloud ks cluster config --cluster $MYCLUSTER
 ```
 
-5- You can either use the default Kubernetes namespace or create a new namespace for this application.
+5.5- You can either use the default Kubernetes namespace or create a new namespace for this application.
 
 If you wish to use the default Kubernetes namespace, run the below command to set an environment variable
 ```
 export KUBERNETES_NAMESPACE=default
 ```
 
-6- Lab 1. Deploy your first application
+### 6- Lab 1. Deploy your first application
 
 https://ibm.github.io/kube101/Lab1/
 
+### 7- Lab 2: Scale and Update Deployments
 
-Install the guessbook app:
-```
-git clone https://github.com/IBM/guestbook.git
-```
-```
-kubectl create deployment guestbook --image=ibmcom/guestbook:v1
+https://ibm.github.io/kube101/Lab2/
 
-```
-7- Display hello-world app deployment:
-```
-kubectl get deployments guestbook
-```
-```
-kubectl describe deployments guestbook
-```
 
-8- Display hello-world ReplicaSet objects:
-```
-kubectl get pods
-```
-```
-kubectl get replicasets
-```
-```
-kubectl describe replicasets
-```
+### 8- Lab 3: Scale and update apps natively, building multi-tier applications
+https://ibm.github.io/kube101/Lab3/
 
-### 7-  Use the IBM-provided domain for your cluster
-Paid clusters come with an IBM-provided domain. This gives you a better option to expose applications with a proper URL and on standard HTTP/S ports.
-
-Create a LoadBalancer that exposes the hello-world deployment:
-
-7.1 Identify your IBM-provided Ingress domain
-```
-ibmcloud ks cluster get --cluster $MYCLUSTER
-```
-Deploy the service:
-```
-kubectl expose deployment guestbook --type=LoadBalancer --port=3000
-
-```
-
-7.2 Display Kubernetes services deployed in previous step:
-```
-kubectl get services guestbook
-```
-It may take up to 5 min to update Loadbalancer in IBM Cloud with new service. As an example of output:
-```
-$ kubectl get services guestbook
-NAME        TYPE           CLUSTER-IP      EXTERNAL-IP                            PORT(S)          AGE
-guestbook   LoadBalancer   172.21.50.119   fb9c40ef-us-south.lb.appdomain.cloud   3000:32334/TCP   41s
-```
-7.5 Use the loadbalancer in "LoadBalancer Ingress:" field and HTTP port in "TargetPort:". Open your application in a browser at https://"LoadBalancer Ingress:"TargetPort:". Output display should be:
-ie. http://fb9c40ef-us-south.lb.appdomain.cloud:3000
-```
-curl -v http://fb9c40ef-us-south.lb.appdomain.cloud:3000
-```
-```
-* Rebuilt URL to: http://fb9c40ef-us-south.lb.appdomain.cloud:3000/
-*   Trying 150.240.68.156...
-* TCP_NODELAY set
-* Connected to fb9c40ef-us-south.lb.appdomain.cloud (150.240.68.156) port 3000 (#0)
-> GET / HTTP/1.1
-> Host: fb9c40ef-us-south.lb.appdomain.cloud:3000
-> User-Agent: curl/7.61.1
-> Accept: */*
-> 
-< HTTP/1.1 200 OK
-< Accept-Ranges: bytes
-< Content-Length: 1047
-< Content-Type: text/html; charset=utf-8
-< Last-Modified: Mon, 10 Dec 2018 00:51:16 GMT
-< Date: Wed, 06 Apr 2022 18:24:56 GMT
-< 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <meta charset="utf-8">
-    <meta content="width=device-width" name="viewport">
-    <link href="style.css" rel="stylesheet">
-    <title>Guestbook - v1</title>
-  </head>
-  <body>
-    <div id="header">
-      <h1>Guestbook - v1</h1>
-    </div>
-
-    <div id="guestbook-entries">
-      <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
-      <p>Waiting for database connection... <i class='em em-boat'></i></p>
-      
-    </div>
-
-    <div>
-      <form id="guestbook-form">
-        <input autocomplete="off" id="guestbook-entry-content" type="text">
-        <a href="#" id="guestbook-submit">Submit</a>
-      </form>
-    </div>
-
-    <div>
-      <p><h2 id="guestbook-host-address"></h2></p>
-      <p><a href="env">/env</a>
-      <a href="info">/info</a></p>
-    </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="script.js"></script>
-  </body>
-</html>
-* Connection #0 to host fb9c40ef-us-south.lb.appdomain.cloud left intact
-```
-### 8-  Scale apps with replicas¶
-
-A replica is a copy of a pod that contains a running service. By having multiple replicas of a pod, you can ensure your deployment has the available resources to handle increasing load on your application.
-
-8.1 kubectl provides a scale subcommand to change the size of an existing deployment. Let's increase our capacity from a single running instance of guestbook up to 10 instances:
-```
-kubectl scale --replicas=10 deployment guestbook
-```
-Kubernetes will now try to make reality match the desired state of 10 replicas by starting 9 new pods with the same configuration as the first.
-
-8.2 To see your changes being rolled out, you can run:
-```
-kubectl rollout status deployment guestbook
-```
-The rollout might occur so quickly that the following messages might not display:
-```
-$ kubectl rollout status deployment guestbook
-Waiting for rollout to finish: 1 of 10 updated replicas are available...
-Waiting for rollout to finish: 2 of 10 updated replicas are available...
-Waiting for rollout to finish: 3 of 10 updated replicas are available...
-Waiting for rollout to finish: 4 of 10 updated replicas are available...
-Waiting for rollout to finish: 5 of 10 updated replicas are available...
-Waiting for rollout to finish: 6 of 10 updated replicas are available...
-Waiting for rollout to finish: 7 of 10 updated replicas are available...
-Waiting for rollout to finish: 8 of 10 updated replicas are available...
-Waiting for rollout to finish: 9 of 10 updated replicas are available...
-deployment "guestbook" successfully rolled out
-```
-8.3 Once the rollout has finished, ensure your pods are running by using:
-```
-kubectl get pods
-```
-You should see output listing 10 replicas of your deployment:
-```
-$ kubectl get pods
-NAME                        READY     STATUS    RESTARTS   AGE
-guestbook-562211614-1tqm7   1/1       Running   0          1d
-guestbook-562211614-1zqn4   1/1       Running   0          2m
-guestbook-562211614-5htdz   1/1       Running   0          2m
-guestbook-562211614-6h04h   1/1       Running   0          2m
-guestbook-562211614-ds9hb   1/1       Running   0          2m
-guestbook-562211614-nb5qp   1/1       Running   0          2m
-guestbook-562211614-vtfp2   1/1       Running   0          2m
-guestbook-562211614-vz5qw   1/1       Running   0          2m
-guestbook-562211614-zksw3   1/1       Running   0          2m
-guestbook-562211614-zsp0j   1/1       Running   0          2m
-```
-Tip: Another way to improve availability is to add clusters and regions to your deployment, as shown in the following diagram:
-![plot](https://ibm.github.io/kube101/images/cs_cluster_ha_roadmap_multizone_public.png)
-
-### 9-  Clean up and remove application
-	
-9.1 List application deployment
-```
-kubectl get deployments
-```
-	
-9.2 Identify kubernetesnodeapp-deployment application in the list and delete
-```
-kubectl delete -n default deployment guestbook
-```
-	
-9.3 List services
-```
-kubectl get services
-```
-	
-9.4 Delete guessbook services
-```
-kubectl delete -n default service guestbook 
-```
-	
