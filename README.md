@@ -123,11 +123,13 @@ https://ibm.github.io/kube101/Lab1/
 
 ### 7- Lab 2: Scale and Update Deployments
 Note 2: Guestbook app V2 has a defect for recording user name.
+
 Note 3: Use a different browser to access V2 app to avoid browser cache issues.
 https://ibm.github.io/kube101/Lab2/
 
 
 ### 8- Lab 3: Scale and update apps natively, building multi-tier applications
 Note 4: It may take few min to deploy LoadBalancer service.
+
 https://ibm.github.io/kube101/Lab3/
 
