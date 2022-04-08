@@ -94,10 +94,10 @@ export MYPROJECT=<your-initials>kubenodeapp
 ibmcloud ks cluster ls
 ```
 
-5.3- Initialize the variable with the cluster name
+5.3- Initialize the variable with the cluster ID
 
 ```
-export MYCLUSTER=<CLUSTER_NAME>
+export MYCLUSTER=<CLUSTER_ID>
 ```
 
 5.4- Initialize the kubectl cli environment
