@@ -115,6 +115,7 @@ export KUBERNETES_NAMESPACE=default
 ### 6- Lab 1. Deploy your first application
 Note 1: For exposing guestbook application to intenet, use Loadbalancer as type instead of NodePort:
 kubectl expose deployment guestbook --type=LoadBalancer --name=guestbook --port 3000
+It may take few min to deploy LoadBalancer service.
 
 https://ibm.github.io/kube101/Lab1/
 
@@ -125,5 +126,6 @@ https://ibm.github.io/kube101/Lab2/
 
 
 ### 8- Lab 3: Scale and update apps natively, building multi-tier applications
+Note 4: It may take few min to deploy LoadBalancer service.
 https://ibm.github.io/kube101/Lab3/
 
